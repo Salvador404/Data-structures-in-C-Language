@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #define SIZE(A) sizeof(A)/sizeof(A[0])
 struct Node{
     int data;
@@ -9,36 +10,46 @@ struct list{
     struct Node *head;
 };
 
-//int search(struct list ,int);
+void linkedlist_search(struct Node**,struct list ,int);
 //void delete(struct list , int);
-void append(struct list* ,int );
-void print_list(struct list );
+void linkedlist_append(struct list* ,int );
+void linkedlist_print(struct list* );
 
 int main(){
     int A[5]={10,20,30,40,50};	
     struct list testlist={.head=NULL};
     for(int i=0;i<5;i++)
-        append(&testlist,A[i]);
+        linkedlist_append(&testlist,A[i]);
     
-    print_list(testlist);
-    
+    linkedlist_print(&testlist);
+    int num;
+    printf("\nenter a number : ");
+    scanf("%d",&num);
+    struct Node *check=NULL;
+    linkedlist_search(&check, testlist, num);
+    if(check==NULL)
+        printf("\nNot found!!\n");
+    else
+        printf("\nFounded!!\n");
+
+
     return 0;
 }
 
 
+////////////////////////////////////////////////////////////
 
-
-void append(struct list *base , int value){
-    struct Node *ptr1=base.head;
+void linkedlist_append(struct list *base , int value){
+    struct Node *ptr1=base->head;
     if (!ptr1){
-        struct Node *ptr=base.head;
+        struct Node *ptr=base->head;
         ptr=malloc(sizeof(struct Node));
         ptr->next=NULL;
-        base.head->data=value;
-        base.head->next=ptr;
+        ptr->data=value;
+        base->head=ptr;
 
     }else{
-        struct Node *ptr=base.head;
+        struct Node *ptr=base->head;
         while(ptr->next){
             ptr=ptr->next;
         }
@@ -48,9 +59,9 @@ void append(struct list *base , int value){
     }
 }
 
-
-void print_list(struct list base){
-    struct Node *ptr1=base.head;
+/////////////////////////////////////////////////////////////
+void linkedlist_print(struct list *base){
+    struct Node *ptr1=base->head;
     while(ptr1){
         printf("%d ",ptr1->data);
         ptr1=ptr1->next;
@@ -59,11 +70,20 @@ void print_list(struct list base){
 }
 
 
+////////////////////////////////////////////////////////////
+void linkedlist_search(struct Node **ptr,struct list base,int value){
+    struct Node *sptr=base.head;
+    while(sptr->data != value && sptr->next)
+        sptr=sptr->next;
+    if (sptr->data == value)
+        *ptr=sptr;
+}
+
+////////////////////////////////////////////////////////////
 
 
 
-
-
+////////////////////////////////////////////////////////////
 
 
 
