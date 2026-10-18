@@ -33,8 +33,9 @@ int main(){
     else
         printf("\nFounded!!\n");
     ////////////////////////////////////////////
-
-
+    linkedlist_delete_val(&testlist, num);
+    linkedlist_print(&testlist);
+    ////////////////////////////////////////////
     return 0;
 }
 
@@ -87,14 +88,21 @@ void linkedlist_search(struct Node **ptr,struct list base,int value){
 
 void linkedlist_delete_val(struct list *base,int value){
     struct Node *ptr1,*ptr =base->head;
-    
-    while(ptr->next && ptr->next->data != value)
-        ptr=ptr->next;
-    if (ptr->data == value)
-        ptr1=ptr->next->next;
-        free(ptr->next);
-        ptr->next=ptr1;
+    if (base->head->data == value){
+        ptr1=ptr->next;
+        base->head=ptr1;
+    }else{
 
+        while(ptr->next && ptr->next->data != value)
+            ptr=ptr->next;
+
+        if (ptr->next->data == value){
+            ptr1=ptr->next->next;
+//        free(ptr->next);
+            ptr->next=ptr1;
+        }
+
+    }        
 }
 
 ////////////////////////////////////////////////////////////
