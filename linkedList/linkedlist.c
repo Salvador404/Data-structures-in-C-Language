@@ -11,7 +11,7 @@ struct list{
 };
 
 void linkedlist_search(struct Node**,struct list ,int);
-//void delete(struct list , int);
+void linkedlist_delete_val(struct list* , int);
 void linkedlist_append(struct list* ,int );
 void linkedlist_print(struct list* );
 
@@ -20,8 +20,9 @@ int main(){
     struct list testlist={.head=NULL};
     for(int i=0;i<5;i++)
         linkedlist_append(&testlist,A[i]);
-    
+    ////////////////////////////////////////////
     linkedlist_print(&testlist);
+    ////////////////////////////////////////////
     int num;
     printf("\nenter a number : ");
     scanf("%d",&num);
@@ -31,6 +32,7 @@ int main(){
         printf("\nNot found!!\n");
     else
         printf("\nFounded!!\n");
+    ////////////////////////////////////////////
 
 
     return 0;
@@ -60,6 +62,7 @@ void linkedlist_append(struct list *base , int value){
 }
 
 /////////////////////////////////////////////////////////////
+
 void linkedlist_print(struct list *base){
     struct Node *ptr1=base->head;
     while(ptr1){
@@ -71,6 +74,7 @@ void linkedlist_print(struct list *base){
 
 
 ////////////////////////////////////////////////////////////
+
 void linkedlist_search(struct Node **ptr,struct list base,int value){
     struct Node *sptr=base.head;
     while(sptr->data != value && sptr->next)
@@ -81,7 +85,17 @@ void linkedlist_search(struct Node **ptr,struct list base,int value){
 
 ////////////////////////////////////////////////////////////
 
+void linkedlist_delete_val(struct list *base,int value){
+    struct Node *ptr1,*ptr =base->head;
+    
+    while(ptr->next && ptr->next->data != value)
+        ptr=ptr->next;
+    if (ptr->data == value)
+        ptr1=ptr->next->next;
+        free(ptr->next);
+        ptr->next=ptr1;
 
+}
 
 ////////////////////////////////////////////////////////////
 
