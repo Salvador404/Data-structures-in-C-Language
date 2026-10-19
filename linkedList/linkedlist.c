@@ -9,12 +9,14 @@ struct Node{
 struct list{
     struct Node *head;
 };
+///////////////////////////////////////////////////////////
+void linkedlist_sort(struct list*);
 void linkedlist_insert(struct list*,int ,int);
 void linkedlist_search(struct Node**,struct list ,int);
 void linkedlist_delete_val(struct list* , int);
 void linkedlist_append(struct list* ,int );
 void linkedlist_print(struct list* );
-
+///////////////////////////////////////////////////////////
 int main(){
     int A[5]={10,20,30,40,50};	
     struct list testlist={.head=NULL};
@@ -40,8 +42,10 @@ int main(){
     printf("\nAfter insert : \n");
     linkedlist_print(&testlist);
     ////////////////////////////////////////////
-    
-
+    linkedlist_sort(&testlist);
+    printf("\nAfter sort : \n");
+    linkedlist_print(&testlist);
+    ////////////////////////////////////////////
     
     
     
@@ -106,10 +110,12 @@ void linkedlist_delete_val(struct list *base,int value){
         while(ptr->next && ptr->next->data != value)
             ptr=ptr->next;
 
-        if (ptr->next->data == value){
+        if (ptr->next && ptr->next->data == value){
             ptr1=ptr->next->next;
 //        free(ptr->next);
             ptr->next=ptr1;
+        }else {
+            return;
         }
 
     }        
@@ -142,8 +148,34 @@ void linkedlist_insert(struct list*base , int value , int place){
 
 ////////////////////////////////////////////////////////////
 
+void linkedlist_sort(struct list *base){
+    struct Node *ptr=base->head;
+    int flag=0;
+    while (ptr){
+        ptr=ptr->next;
+        flag++;
+    }
+    if (flag<2){
+        return;
+    }else{
+        for (int i=flag ; i>1 ; i--){
+            struct Node *bptr ,*aptr=base->head;
+            bptr=aptr->next;
 
+            for (int j=0 ; j<i-1 ; j++){
+                if(aptr->data > bptr->data){
+                    int temp=aptr->data;
+                    aptr->data=bptr->data;
+                    bptr->data=temp;
+                }
+                aptr=aptr->next;
+                bptr=aptr->next;
+            }
+        }
+    }
+    
+}
 
-
+////////////////////////////////////////////////////////////
 
 
