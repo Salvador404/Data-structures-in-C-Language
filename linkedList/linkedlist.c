@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+//#include <time.h>
 #define SIZE(A) sizeof(A)/sizeof(A[0])
 struct Node{
     int data;
@@ -9,7 +9,7 @@ struct Node{
 struct list{
     struct Node *head;
 };
-
+void linkedlist_insert(struct list*,int ,int);
 void linkedlist_search(struct Node**,struct list ,int);
 void linkedlist_delete_val(struct list* , int);
 void linkedlist_append(struct list* ,int );
@@ -36,6 +36,16 @@ int main(){
     linkedlist_delete_val(&testlist, num);
     linkedlist_print(&testlist);
     ////////////////////////////////////////////
+    linkedlist_insert(&testlist, num, 4);
+    printf("\nAfter insert : \n");
+    linkedlist_print(&testlist);
+    ////////////////////////////////////////////
+    
+
+    
+    
+    
+
     return 0;
 }
 
@@ -107,9 +117,30 @@ void linkedlist_delete_val(struct list *base,int value){
 
 ////////////////////////////////////////////////////////////
 
+void linkedlist_insert(struct list*base , int value , int place){
+    if (base->head == NULL){
+        struct Node *ptr=malloc(sizeof(struct Node));
+        base->head=ptr;
+    }else{
+        struct Node *ptr=base->head;
+        int i;
+        for (i=1 ; i<(place-1) ;i++){ // ptr allready in first value, so our loop started from '1'
+            if (ptr->next)
+                ptr=ptr->next;
+            else
+                break;
+        }
+        struct Node *nptr;//next ptr
+        nptr=ptr->next;
+        ptr->next=malloc(sizeof(struct Node));
+        ptr->next->next=nptr;
+        ptr->next->data=value;
+        
+    }
+    
+}
 
-
-
+////////////////////////////////////////////////////////////
 
 
 
