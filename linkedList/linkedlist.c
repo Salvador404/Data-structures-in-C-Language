@@ -10,6 +10,7 @@ struct list{
     struct Node *head;
 };
 ///////////////////////////////////////////////////////////
+void linkedlist_delete_dup(struct list *);
 void linkedlist_sort(struct list*);
 void linkedlist_insert(struct list*,int ,int);
 void linkedlist_search(struct Node**,struct list ,int);
@@ -18,9 +19,9 @@ void linkedlist_append(struct list* ,int );
 void linkedlist_print(struct list* );
 ///////////////////////////////////////////////////////////
 int main(){
-    int A[5]={10,20,30,40,50};	
+    int A[8]={60,10,60,50,20,40,30,10};	
     struct list testlist={.head=NULL};
-    for(int i=0;i<5;i++)
+    for(int i=0;i<8;i++)
         linkedlist_append(&testlist,A[i]);
     ////////////////////////////////////////////
     linkedlist_print(&testlist);
@@ -38,16 +39,18 @@ int main(){
     linkedlist_delete_val(&testlist, num);
     linkedlist_print(&testlist);
     ////////////////////////////////////////////
-    linkedlist_insert(&testlist, num, 4);
-    printf("\nAfter insert : \n");
-    linkedlist_print(&testlist);
+    //linkedlist_insert(&testlist, num, 7);
+    //printf("\nAfter insert : \n");
+    //linkedlist_print(&testlist);
     ////////////////////////////////////////////
     linkedlist_sort(&testlist);
     printf("\nAfter sort : \n");
     linkedlist_print(&testlist);
     ////////////////////////////////////////////
-    
-    
+    linkedlist_delete_dup(&testlist);
+    printf("\nAfter clearing : \n");
+    linkedlist_print(&testlist);
+    ////////////////////////////////////////////
     
 
     return 0;
@@ -178,4 +181,21 @@ void linkedlist_sort(struct list *base){
 
 ////////////////////////////////////////////////////////////
 
+void linkedlist_delete_dup(struct list *base){
+    struct Node *ptr=base->head;
+    if (!ptr || !ptr->next){
+        return;
+    }else{    
+        while(ptr && ptr->next){
+           if (ptr->data == ptr->next->data){
+               struct Node *tmp=ptr->next;
+               ptr->next=tmp->next;
+               //free(tmp);
+           }
+           ptr=ptr->next;
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////
 
