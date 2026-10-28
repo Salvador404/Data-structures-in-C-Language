@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 //#include <time.h>
 #define SIZE(A) sizeof(A)/sizeof(A[0])
 struct Node{
@@ -10,6 +11,7 @@ struct list{
     struct Node *head;
 };
 ///////////////////////////////////////////////////////////
+void linkedlist_intersection(struct list*,struct list*,struct list*);
 void linkedlist_delete_dup(struct list *);
 void linkedlist_sort(struct list*);
 void linkedlist_insert(struct list*,int ,int);
@@ -20,9 +22,13 @@ void linkedlist_print(struct list* );
 ///////////////////////////////////////////////////////////
 int main(){
     int A[8]={60,10,60,50,20,40,30,10};	
+    int B[8]={10,30,42,40,20,31,95,1};
     struct list testlist={.head=NULL};
+    struct list testlist2={.head=NULL};
     for(int i=0;i<8;i++)
         linkedlist_append(&testlist,A[i]);
+    for(int i=0;i<8;i++)
+        linkedlist_append(&testlist2,B[i]);
     ////////////////////////////////////////////
     linkedlist_print(&testlist);
     ////////////////////////////////////////////
@@ -51,7 +57,20 @@ int main(){
     printf("\nAfter clearing : \n");
     linkedlist_print(&testlist);
     ////////////////////////////////////////////
-    
+    printf("\nlist A : ");
+    linkedlist_print(&testlist);
+    printf("\nlist B : ");
+    linkedlist_print(&testlist2);
+    struct list result={.head=NULL};
+    linkedlist_intersection(&result, &testlist, &testlist2);
+    if (!result.head)
+        printf("\nNo intersection!!\n");
+    else{
+        printf("\nIntersection : ");
+        linkedlist_print(&result);
+    }
+    ////////////////////////////////////////////
+
 
     return 0;
 }
@@ -199,3 +218,24 @@ void linkedlist_delete_dup(struct list *base){
 
 ////////////////////////////////////////////////////////////
 
+void linkedlist_intersection(struct list *res,struct list *list_a,struct list *list_b){
+    struct Node *ptr_a=list_a->head;
+    struct Node *ptr_b=list_b->head;
+    if (!ptr_a && !ptr_b){
+        return;
+    }else{
+        while(ptr_a){
+            ptr_b=list_b->head;
+            while(ptr_b){
+                if (ptr_a->data == ptr_b->data){
+                   linkedlist_append(res, ptr_a->data);
+                   break;
+                }
+                ptr_b=ptr_b->next;
+            }
+            ptr_a=ptr_a->next;
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////
