@@ -11,6 +11,7 @@ struct list{
     struct Node *head;
 };
 ///////////////////////////////////////////////////////////
+void linkedlist_invert(struct list*);
 void linkedlist_intersection(struct list*,struct list*,struct list*);
 void linkedlist_delete_dup(struct list *);
 void linkedlist_sort(struct list*);
@@ -69,6 +70,10 @@ int main(){
         printf("\nIntersection : ");
         linkedlist_print(&result);
     }
+    ////////////////////////////////////////////
+    printf("\nresults after reversing : \n");
+    linkedlist_invert(&result);
+    linkedlist_print(&result);
     ////////////////////////////////////////////
 
 
@@ -238,4 +243,22 @@ void linkedlist_intersection(struct list *res,struct list *list_a,struct list *l
     }
 }
 
-////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////// 
+
+void linkedlist_invert(struct list *base){
+    struct Node *ptr=base->head;
+    if (!ptr || !ptr->next)
+        return;
+    else{
+        struct Node  *after , *before=NULL;
+        while(ptr){
+            after=ptr->next;
+            ptr->next=before;
+            before=ptr;
+            ptr=after;
+        }
+        base->head=before;
+    }
+}
+
+//////////////////////////////////////////////////////////// 
