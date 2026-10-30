@@ -1,5 +1,7 @@
-#data structures in c-languages
+data structures in c-languages
 
-#Simple Linked Lists
+Linked Lists
 
-#Circular Linked List
+Stack
+
+Queue
