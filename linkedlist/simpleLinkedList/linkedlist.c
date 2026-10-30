@@ -247,11 +247,11 @@ void linkedlist_intersection(struct list *res,struct list *list_a,struct list *l
 
 void linkedlist_invert(struct list *base){
     struct Node *ptr=base->head;
-    if (!ptr || !ptr->next)
+    if (!ptr || !ptr->next) //The order of the conditions is important.
         return;
     else{
         struct Node  *after , *before=NULL;
-        while(ptr){
+        while(ptr){         //it can be "while(before)" too 
             after=ptr->next;
             ptr->next=before;
             before=ptr;
