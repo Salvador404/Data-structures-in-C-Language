@@ -119,10 +119,14 @@ void linkedlist_print(struct list *base){
 
 void linkedlist_search(struct Node **ptr,struct list base,int value){
     struct Node *sptr=base.head;
-    while(sptr->data != value && sptr->next)
-        sptr=sptr->next;
-    if (sptr->data == value)
-        *ptr=sptr;
+    if (!sptr)
+        return;
+    else{    
+        while(sptr && sptr->data != value )
+            sptr=sptr->next;
+        if (sptr->data == value)
+            *ptr=sptr;
+    }
 }
 
 ////////////////////////////////////////////////////////////
