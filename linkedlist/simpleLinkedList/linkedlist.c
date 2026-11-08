@@ -11,6 +11,7 @@ struct list{
     struct Node *head;
 };
 ///////////////////////////////////////////////////////////
+int linkedlist_shift_delete(struct list *);
 void linkedlist_invert(struct list*);
 void linkedlist_intersection(struct list*,struct list*,struct list*);
 void linkedlist_delete_dup(struct list *);
@@ -133,7 +134,9 @@ void linkedlist_search(struct Node **ptr,struct list base,int value){
 
 void linkedlist_delete_val(struct list *base,int value){
     struct Node *ptr1,*ptr =base->head;
-    if (base->head->data == value){
+    if (!base->head)
+        return;
+    else if (base->head->data == value){
         ptr1=ptr->next;
         base->head=ptr1;
     }else{
@@ -262,6 +265,22 @@ void linkedlist_invert(struct list *base){
             ptr=after;
         }
         base->head=before;
+    }
+}
+
+////////////////////////////////////////////////////////////
+
+int linkedlist_shift_delete(struct list *base){
+    if (!base->head)
+        return -1;
+    else{
+        struct Node* ptr=base->head;
+        while(ptr){
+            struct Node * tmp=ptr->next;
+            free(ptr);
+            ptr=tmp;
+        }
+        return 1;
     }
 }
 
