@@ -290,6 +290,7 @@ int linkedlist_shift_delete(struct list *base){
             free(ptr);
             ptr=tmp;
         }
+        base->head=NULL;
         return 1;
     }
 }
