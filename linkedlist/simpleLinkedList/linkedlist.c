@@ -293,6 +293,6 @@ int linkedlist_shift_delete(struct list *base){
         base->head=NULL;
         return 1;
     }
-}
+}//remember that in other deleting functions ,every Node just deleted from list, not from memory.Fix that before use
 
 //////////////////////////////////////////////////////////// 
