@@ -76,6 +76,16 @@ int main(){
     linkedlist_invert(&result);
     linkedlist_print(&result);
     ////////////////////////////////////////////
+    int res_del=0;
+    res_del=linkedlist_shift_delete(&testlist);
+    if (res_del){
+        printf("\nList after deleting :");
+        linkedlist_print(&testlist);
+    }else{
+        printf("deleting func is broken!");
+    }
+
+    ////////////////////////////////////////////
 
 
     return 0;
@@ -272,7 +282,7 @@ void linkedlist_invert(struct list *base){
 
 int linkedlist_shift_delete(struct list *base){
     if (!base->head)
-        return -1;
+        return 1;
     else{
         struct Node* ptr=base->head;
         while(ptr){
